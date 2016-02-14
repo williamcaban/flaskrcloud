@@ -31,6 +31,6 @@ deploy_job:
   script:
    - echo "Deploying conainers..."
    - echo "Note we could use a bash script to determine if container already exist to do proper cleaning"
-   - docker run -d -p 5984:5984 -v /opt/couchdb:rw  --name couchdb klaemo/couchdb
+   - docker run -d -p 5984:5984 -v /opt/couchdb:/usr/local/var/lib/couchdb:rw  --name couchdb klaemo/couchdb
    - docker run -d -P --name flaskrcloud registry.snappyvault.com:5000/flaskrcloud
  
