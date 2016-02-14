@@ -29,6 +29,8 @@ deploy_job:
   - docker
   - production
   script:
-  - echo "Deploying conainer"
-  - docker run -d -P -e MODE='lab' --name flaskrcloud registry.snappyvault.com:5000/flaskrcloud
-  
+  - echo "Deploying conainers... destroy any existing container with the same name (even CouchDB)"
+  - make fullclean
+  - docker run -d -p 5984:5984 -v /opt/couchdb:rw  --name couchdb klaemo/couchdb
+  - docker run -d -P --name flaskrcloud registry.snappyvault.com:5000/flaskrcloud
+ 
