@@ -1,4 +1,4 @@
-image: centos
+image: dind
 
 before_script:
  - echo "Starting Gitlab-CI script"
