@@ -10,6 +10,9 @@ stages:
 
 build_job:
   stage: test
+  tags:
+  - baremetal
+  - docker
   script:
   - cd /builds/william/flaskrcloud ; make all ; make fulltest
   - curl -v localhost:5000
