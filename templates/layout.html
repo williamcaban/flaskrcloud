@@ -1,0 +1,32 @@
+<!doctype html>
+
+<title>Flaskr Cloud Lab</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+<div class="page">
+  <h1>Flaskr Cloud Lab</h1>
+
+  <div class="metanav">
+  {% if not session.logged_in %}
+    <a href="{{ url_for('login') }}">LOG IN</a>
+  {% else %}
+    <a href="{{ url_for('logout') }}">LOG OUT</a>
+  {% endif %}
+  </div>
+
+  <ul class="info">
+    <li><name>SERVER:</name> <value>{{ server_name }}</value></li>
+    <li><name>DB_URI:</name> <value>{{ db_server }}</value></li>
+  </ul>
+
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+  {% block body %}{% endblock %}
+</div>
+
+<div class="credit">
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />Creative Commons Attribution-ShareAlike 4.0 International License.
+  <br />Find the latest version at https://github.com/williamcaban/flaskrcloud 
+</div>
+
+</html>
