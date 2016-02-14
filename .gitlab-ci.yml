@@ -14,12 +14,21 @@ build_job:
   - baremetal
   - docker
   script:
-  - make all
+#  - make all # Disabled to speed tests
   - make fulltest
-  - curl -v localhost:5000
+  - echo "Sleeping to allow containers to become available" ; sleep 5
+  - curl localhost:5000
+  - make fullclean
+  - docker tag flaskrcloud registry.snappyvault.com:5000/flaskrcloud
+  - docker push registry.snappyvault.com:5000/flaskrcloud
 
 deploy_job:
   stage: deploy
+  tags:
+  - baremetal
+  - docker
+  - production
   script:
-  - echo "Nothing here... future"
+  - echo "Deploying conainer"
+  - docker run -d -P -e MODE='lab' --name flaskrcloud registry.snappyvault.com:5000/flaskrcloud
   
