@@ -5,15 +5,16 @@ before_script:
  - docker info
 
 stages:
+# - test
  - buildcontainer
  - deploy
 
-test_job:
-  stage: test
-  tags:
-   - dev
-  script:
-   - echo "Future test of flakrcloud script inside a container"
+#test_job:
+#  stage: test
+#  tags:
+#   - dev
+#  script:
+#   - echo "Future test of flakrcloud script inside a container"
 
 buildcontainer_job:
   stage: buildcontainer
