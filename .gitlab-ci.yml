@@ -8,19 +8,27 @@ stages:
  - buildcontainer
  - deploy
 
+test_job:
+  stage: test
+  tags:
+   - dev
+  script:
+   - echo "Future test of flakrcloud script inside a container"
+
 buildcontainer_job:
   stage: buildcontainer
   tags:
    - baremetal
    - docker
   script:
-#  - make all # Disabled to speed tests
+   - make all # Disabled to speed tests
    - make fulltest
-   - echo "Sleeping to allow containers to become available" ; sleep 5
+   - echo "Sleeping to allow containers to become available"
+   - sleep 5 ; echo "Wait for CouchDB to be ready"
    - curl localhost:5000
    - make fullclean
-#  - docker tag -f flaskrcloud registry.snappyvault.com:5000/flaskrcloud
-#  - docker push registry.snappyvault.com:5000/flaskrcloud
+   - docker tag -f flaskrcloud registry.snappyvault.com:5000/flaskrcloud
+   - docker push registry.snappyvault.com:5000/flaskrcloud
 
 deploy_job:
   stage: deploy
@@ -32,5 +40,6 @@ deploy_job:
    - echo "Deploying conainers..."
    - echo "Note we could use a bash script to determine if container already exist to do proper cleaning"
    - docker run -d -p 5984:5984 -v /opt/couchdb:/usr/local/var/lib/couchdb:rw  --name couchdb klaemo/couchdb
-   - docker run -d -P --name flaskrcloud registry.snappyvault.com:5000/flaskrcloud
+   - sleep 5 ; echo "Allow for CouchDB instance to be ready"
+   - docker run -d -p 5000:5000 --name flaskrcloud registry.snappyvault.com:5000/flaskrcloud
  
