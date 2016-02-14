@@ -38,8 +38,7 @@ DEBUG = False
 SECRET_KEY = 'development sample key'
 USERNAME = 'admin'
 PASSWORD = '1234Qwer'
-#DBSERVER='http://127.0.0.1:5984' # URI for CouchDB database
-DBSERVER='http://198.18.200.21:5984'
+DBSERVER='http://127.0.0.1:5984' # URI for CouchDB database
 HOSTNAME=platform.node()
 FLASKRPORT=5000
 
