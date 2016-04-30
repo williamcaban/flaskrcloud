@@ -2,10 +2,12 @@
 # Makefile to manage docker build during dev
 # (This is to be used to build and test a Docker container)
 
+NODEIP=`ip addr show eth0 | grep 'inet ' | cut -d' ' -f6 | cut -d'/' -f1 | awk '{print $1}'`
+
 all:
 	docker build -t flaskrcloud .
 test:
-	docker run -tid -p 5000:5000 -e MODE='lab' --name flaskrcloud flaskrcloud
+	docker run -tid -p 5000:5000 -e COUCHDB=${NODEIP} -e MODE='lab' --name flaskrcloud flaskrcloud
 
 # Test with CouchDB container
 fulltest: test

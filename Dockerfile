@@ -1,6 +1,6 @@
 FROM centos
 MAINTAINER William Caban <william.caban@gmail.com>
-LABEL version="0.1.1"
+LABEL version="0.1.2"
 LABEL version="latest"
 
 ADD setupflaskrcloud.sh /
