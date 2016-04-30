@@ -42,5 +42,6 @@ deploy_job:
    - echo "Note we could use a bash script to determine if container already exist to do proper cleaning"
    - docker run -d -p 5984:5984 -v /opt/couchdb:/usr/local/var/lib/couchdb:rw  --name couchdb klaemo/couchdb
    - sleep 5 ; echo "Allow for CouchDB instance to be ready"
-   - docker run -d -p 5000:5000 --name flaskrcloud registry.snappyvault.com:5000/flaskrcloud
+   - export NODEIP=`ip addr show eth0 | grep 'inet ' | cut -d' ' -f6 | cut -d'/' -f1 | awk '{print $1}'`
+   - docker run -d -p 5000:5000 -e COUCHDB=$NODEIP --name flaskrcloud registry.snappyvault.com:5000/flaskrcloud
  
